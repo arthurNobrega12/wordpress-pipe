@@ -1,22 +1,30 @@
 version: 2.1
+
 orbs:
   rancher_orbs: twinfo-io/rancher_orbs@0.0.5
 
 jobs:
   build-web:
+    docker:
+      - image: circleci/python:3.8  # Pode mudar a imagem base conforme necessário
     steps:
-    - checkout
+      - checkout
+      
+      - setup_remote_docker:
+          version: 20.10.7  # Versão do Docker que o CircleCI usará
 
-    - setup_remote_docker:
-        docker: docker23
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
 
-      rancher_orbs/upgrade:
-        name: deploy-wordpress-rancher
-        stack-definition: .circleci/docker-compose.yml
-        stack-name: wordpress-stack
-        context:
-          - wordpressEnv
-    
+      - rancher_orbs/upgrade:
+          name: deploy-wordpress-rancher
+          stack-definition: .circleci/docker-compose.yml
+          stack-name: wordpress-stack
+          context: wordpressEnv
+
 workflows:
   version: 2
   wordpress_workflow:
