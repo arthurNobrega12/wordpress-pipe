@@ -23,6 +23,7 @@ jobs:
           name: deploy-wordpress-rancher
           stack-definition: .circleci/docker-compose.yml
           stack-name: wordpress-stack
+          env: wordpressEnv
           context: wordpressEnv
 
 workflows:
