@@ -6,7 +6,10 @@ jobs:
   build-web:
     steps:
     - checkout
-    
+
+    - setup_remote_docker:
+        docker: docker23
+
       rancher_orbs/upgrade:
         name: deploy-wordpress-rancher
         stack-definition: .circleci/docker-compose.yml
@@ -18,4 +21,4 @@ workflows:
   version: 2
   wordpress_workflow:
     jobs:
-      - setup_wordpress
+      - build-web
