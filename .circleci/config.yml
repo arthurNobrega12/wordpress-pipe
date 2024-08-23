@@ -21,6 +21,7 @@ jobs:
 
       - rancher_orbs/upgrade:
           name: deploy-wordpress-rancher
+          attach-workspace: true
           stack-definition: .circleci/docker-compose.yml
           stack-name: wordpress-stack
           env: wordpressEnv
