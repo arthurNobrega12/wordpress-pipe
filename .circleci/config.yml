@@ -3,12 +3,16 @@ orbs:
   rancher_orbs: twinfo-io/rancher_orbs@0.0.5
 
 jobs:
-  rancher_orbs/upgrade:
-    name: deploy-wordpress-rancher
-    stack-definition: .circleci/docker-compose.yml
-    stack-name: wordpress-stack
-    context:
-      - wordpressEnv
+  build-web:
+    steps:
+    - checkout
+    
+      rancher_orbs/upgrade:
+        name: deploy-wordpress-rancher
+        stack-definition: .circleci/docker-compose.yml
+        stack-name: wordpress-stack
+        context:
+          - wordpressEnv
     
 workflows:
   version: 2
