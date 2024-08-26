@@ -6,7 +6,7 @@ orbs:
 jobs:
   build-web:
     docker:
-      - image: circleci/python:3.8  # Pode mudar a imagem base conforme necessário
+      - image: cimg/base:stable  # Pode mudar a imagem base conforme necessário
     steps:
       - checkout
       
@@ -24,11 +24,7 @@ jobs:
           attach-workspace: true
           stack-definition: .circleci/docker-compose.yml
           stack-name: wordpress-stack
-          env: wordpressEnv
+          env: default
           context: wordpressEnv
 
-workflows:
-  version: 2
-  wordpress_workflow:
-    jobs:
-      - build-web
+
